@@ -1,25 +1,62 @@
 import Vue from 'Vue';
 import VueRouter from 'vue-router';
-import LoginComponent from './components/LoginComponent';
-import AdminComponent from './components/AdminComponent';
+import Login from './components/Authentication/Login';
+import Register from './components/Authentication/Register';
+import AdminDashboard from './components/AdminDashboard';
+import OperatorDashboard from './components/OperatorDashboard';
+import Home from './components/Home';
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        redirect: '/login'
+        name: 'home',
+        component: Home,
+        meta: {
+            auth: undefined
+        }
     },
     {
         path: '/login',
-        component: LoginComponent,
-        name: 'login'
+        name: 'login',
+        component: Login,
+        meta: {
+            auth: false
+        }
     },
     {
+        path: '/register',
+        name: 'register',
+        component: Register,
+        meta: {
+            auth: false
+        }
+    },
+    //OPERATOR
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: OperatorDashboard,
+        meta: {
+            auth: { roles: 1, redirect: { name: 'login' }, forbiddenRedirect: '/403' }
+        }
+    },
+    //ADMIN
+    {
         path: '/admin',
-        component: AdminComponent,
-        name: 'admin'
+        name: 'admin.dashboard',
+        component: AdminDashboard,
+        meta: {
+            auth: { roles: 2, redirect: { name: 'login' }, forbiddenRedirect: '/403' }
+        }
     }
 ]
 
-export default new VueRouter({ routes })
+const router = new VueRouter({
+    history: true,
+    mode: 'history',
+    routes,
+})
+
+export default router
