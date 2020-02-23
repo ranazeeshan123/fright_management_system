@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
 
         'isAdmin' => \App\Http\Middleware\CheckIsAdmin::class,
         'isAdminOrSelf' => \App\Http\Middleware\CheckIsAdminOrSelf::class,
+        'isSender' => \App\Http\Middleware\IsSender::class,
     ];
 
     /**

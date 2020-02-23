@@ -67,12 +67,13 @@ export default {
         },
         success: function() {
           // handle redirection
-          console.log("success");
+          console.log(redirect, "success");
           const redirectTo = redirect
             ? redirect.from.name
             : this.$auth.user().role === 2
             ? "admin.dashboard"
             : "dashboard";
+          console.log(redirectTo, "HeLLO ROUTER");
           this.$router.push({ name: redirectTo });
         },
         error: function() {

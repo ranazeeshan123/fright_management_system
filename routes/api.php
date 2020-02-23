@@ -10,20 +10,6 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
-// Route::group([
-//     'prefix' => 'auth',
-// ], function () {
-//     Route::post('login', 'AuthController@login');
-//     Route::post('signup', 'AuthController@signup');
-
-//     Route::group([
-//         'middleware' => 'auth:api',
-//     ], function () {
-//         Route::get('logout', 'AuthController@logout');
-//         Route::get('user', 'AuthController@user');
-//     });
-
-// });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -43,4 +29,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     // Users
     Route::get('users', 'UserController@index')->middleware('isAdmin');
     Route::get('users/{id}', 'UserController@show')->middleware('isAdminOrSelf');
+
+    //Bilty
+    Route::get('bilty', 'BiltyController@index');
+    Route::get('bilty/{id}', 'BiltyController@show');
+    Route::put('bilty/{id}', 'BiltyController@update');
+    Route::post('bilty/create', 'BiltyController@store');
+    Route::post('bilty/{id}', 'BiltyController@destroy');
 });
